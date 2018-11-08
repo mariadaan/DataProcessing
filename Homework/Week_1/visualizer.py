@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     # Create plot of average rating per year
     plt.xticks(range(START_YEAR, END_YEAR))
-    plt.yticks([8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9])
+    #plt.yticks([8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9])
     plt.plot(range(START_YEAR, END_YEAR), averagelist, 'ro')
     plt.axis([START_YEAR - 1, END_YEAR, 8.1, 8.9])
     plt.grid()
