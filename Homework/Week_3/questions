@@ -1,0 +1,18 @@
+Explain the difference between the == operator and the === operator.
+- The == operator is to test if two values are equal. If the values are of a different type, the operator uses automatic type
+  conversion. So if one of the values is an integer and the other value is a string but contains an int, JavaScript will
+  convert the string to an integer. The === operator still compares two values, but doesn't use automatic type conversion.
+  This means the === operator will always return false if the values are not the same type.
+
+Explain what a closure is. (Note that JavaScript programs use closures very often)
+- Closure is the possibility to reference a local variable/binding. This local binding can change within a closed scope,
+  so you need to access it through this scope.
+
+Explain what higher order functions are.
+- Higher order functions are functions that are able to use another function as an argument or to create a new function.
+  In other words, a higher-order function does not just return a value or print something, it has broader functionality and
+  it can be used to change functions, create functions and provide new types of control flow.
+
+Explain what a query selector is and give an example line of JavaScript that uses a query selector.
+- A query selector selects the first element in a file that meets the condition between the braces.
+  file.querySelector(".example");
