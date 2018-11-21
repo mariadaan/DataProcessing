@@ -1,4 +1,4 @@
-Hoi! Welkom bij mijn code die overduidelijk niet af is.
+Hoi! Welkom bij mijn code die overduidelijk niet af is. Het lukt me ook niet om het via een index.html in te leveren. Hoe plaats ik iets 'at the root of my repository'?? Erg onduidelijke uitleg.
 
 Hier kan je hem bekijken:
 
