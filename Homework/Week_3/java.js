@@ -27,13 +27,35 @@ txtFile.onreadystatechange = function() {
         var min_temp = Math.min(...temps);
         var max_temp = Math.max(...temps);
 
+        console.log(min_temp, max_temp)
+
         // Create function to calculate coordinates on canvas
-        yTransform = createTransform([min_temp, max_temp], [0, 300]);
-        xTransform = createTransform([first_date, last_date], [0, 800]);
+        xTransform = createTransform([first_date, last_date], [55, 800]);
+        yTransform = createTransform([min_temp, max_temp], [50, 300]);
 
         // Create 2D canvas to draw chart on
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
+
+        // ctx.font = '48px serif';
+        ctx.fillText('Minimum temperatuur in Hupsel', 240, 10);
+
+
+
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
+        for(var m = 0, s = 0; m <= months.length; m++, s+=30){
+          ctx.fillText(months[m], xTransform(dates[s]), 375)
+        }
+
+        degrees = ['-10', '-5', '0', '5', '10', '15', '20', '25']
+        for (var i = degrees.length, j = 55; i > 0; i--, j+=44){
+          ctx.fillText(degrees[i - 1] + '°C', 30, j)
+        }
+
+        ctx.fillText('Maanden', 720, 395);
+        ctx.fillText('Temperatuur', 10, 20);
+
+        ctx.transform(1, 0, 0, -1, 0, canvas.height)
 
         // Draw linechart
         ctx.beginPath();
@@ -46,11 +68,35 @@ txtFile.onreadystatechange = function() {
           ctx.lineTo(x_coordinate, y_coordinate)
           ctx.moveTo(x_coordinate, y_coordinate)
         }
+        ctx.stroke();
+
+        // Draw x axis
+        ctx.beginPath();
+        ctx.moveTo(xTransform(first_date), yTransform(0));
+        ctx.lineWidth = 1;
+        ctx.lineTo(xTransform(last_date), yTransform(0));
+        ctx.stroke();
+
+        // Draw extra lines
+        for (var i = 0, j = 250; i < 10; i++, j-=50){
+          ctx.beginPath();
+          ctx.moveTo(xTransform(first_date), yTransform(j));
+          ctx.lineWidth = 0.2;
+          ctx.lineTo(xTransform(last_date), yTransform(j));
+          ctx.stroke();
+        };
+
+        // Draw y axis
+        ctx.beginPath();
+        ctx.moveTo(xTransform(first_date), 38);
+        ctx.lineWidth = 1;
+        ctx.lineTo(xTransform(first_date), 370);
+        ctx.stroke();
+
 
         // Add title
         // ctx.textAlign = "right";
-        ctx.fillText('Minimum temperatuur in Hupsel (in 0.1 graden Celsius)', 240, 380);
-        ctx.stroke();
+
 
     }
   }
