@@ -38,8 +38,6 @@ txtFile.onreadystatechange = function() {
         var ctx = canvas.getContext('2d');
 
         // ctx.font = '48px serif';
-        ctx.fillText('Minimum temperatuur in Hupsel', 240, 10);
-
 
 
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
