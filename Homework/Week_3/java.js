@@ -27,8 +27,6 @@ txtFile.onreadystatechange = function() {
         var min_temp = Math.min(...temps);
         var max_temp = Math.max(...temps);
 
-        console.log(min_temp, max_temp)
-
         // Create function to calculate coordinates on canvas
         xTransform = createTransform([first_date, last_date], [55, 800]);
         yTransform = createTransform([min_temp, max_temp], [50, 300]);
@@ -37,29 +35,27 @@ txtFile.onreadystatechange = function() {
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
 
-        // ctx.font = '48px serif';
-
-
+        // Add labels to x axis
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
         for(var m = 0, s = 0; m <= months.length; m++, s+=30){
           ctx.fillText(months[m], xTransform(dates[s]), 375)
         }
+        ctx.fillText('Maanden', 720, 395);
 
+        // Add labels to y axis
         degrees = ['-10', '-5', '0', '5', '10', '15', '20', '25']
         for (var i = degrees.length, j = 55; i > 0; i--, j+=44){
           ctx.fillText(degrees[i - 1] + '°C', 30, j)
         }
-
-        ctx.fillText('Maanden', 720, 395);
         ctx.fillText('Temperatuur', 10, 20);
 
+        // Flip canvas
         ctx.transform(1, 0, 0, -1, 0, canvas.height)
 
         // Draw linechart
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.moveTo(xTransform(dates[0]), yTransform(temps[0]))
-
         for (var i = 0; i < temps.length; i++){
           var x_coordinate = xTransform(dates[i])
           var y_coordinate = yTransform(temps[i])
@@ -90,11 +86,6 @@ txtFile.onreadystatechange = function() {
         ctx.lineWidth = 1;
         ctx.lineTo(xTransform(first_date), 370);
         ctx.stroke();
-
-
-        // Add title
-        // ctx.textAlign = "right";
-
 
     }
   }
