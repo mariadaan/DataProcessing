@@ -1,8 +1,4 @@
-Hoi! Welkom bij mijn code die overduidelijk niet af is. Het lukt me ook niet om het via een index.html in te leveren. Hoe plaats ik iets 'at the root of my repository'?? Erg onduidelijke uitleg.
-
-Hier kan je hem bekijken:
-
-http://localhost:8080/javascript.html
+Hoi! Welkom bij mijn code. Je kan hier bekijken hoe de minimumtemperatuur in Hupsel afgelopen jaar is geweest. Echt superleuk. Veel plezier ermee.
 
 Hier heb ik de data vandaan:
 http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi
