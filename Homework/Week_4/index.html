@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>D3 Barchart</title>
+  <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <style type="text/css">
+  /* Set style for bar chart */
+  .bar {
+      fill: LightSkyBlue;
+    }
+  .bar:hover {
+      fill: LightSlateGrey;
+    }
+  text {
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+
+    // Display information about data
+    d3.select("body")
+      .append("p")
+      .text("Barchart of water withdrawals in cubic meters (one cubic meter of water is the equivalent of one thousand liters")
+      .append("p")
+      .text("Maria Daan, 11243406")
+      .append("p")
+      .text("OECD (2018), Water withdrawals (indicator). doi: 10.1787/17729979-en (Accessed on 27 November 2018)");
+
+    // Load in dataset
+    var dataset = d3.json("data.json").then(function(dataset){
+
+    // Set margins
+    var margin = {top: 20, right: 0, bottom: 50, left: 70},
+      width = 1200 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+    // Scale x and y values
+    var x = d3.scaleBand()
+    .rangeRound([0, width])
+    .padding(0.1);
+
+    var y = d3.scaleLinear()
+    	.rangeRound([height, 0]);
+
+    x.domain(dataset.map(function(d) { return d.LOCATION; }));
+    y.domain([0, d3.max(dataset, function(d) { return d.Value; })]);
+
+    // Create Scalable Vector Graphic
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    // Create bars
+    svg.selectAll(".bar")
+      .data(dataset)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.LOCATION); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.Value); })
+      .attr("height", function(d) { return height - y(d.Value); });
+
+    // Add x axis
+    svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+    // Add label to y axis
+    svg.append("text")
+       .attr("x", 1100)
+       .attr("y", 570)
+       .attr("dx", "1em")
+       .attr("text-anchor", "end")
+       .text("Country");
+
+    // Add y axis
+    svg.append("g")
+      .call(d3.axisLeft(y));
+
+    // Add label to x axis
+    svg.append("text")
+       .attr("transform", "rotate(-90)")
+       .attr("y", 2)
+       .attr("dy", "-3.7em")
+       .attr("text-anchor", "end")
+       .text("Cubic meters of water");
+      });
+
+  </script>
+
+</body>
+</html>
