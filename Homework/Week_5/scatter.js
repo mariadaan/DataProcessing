@@ -50,11 +50,6 @@ window.onload = function() {
       .tickSize(-width)
       .scale(yscale)
 
-    // colors for bubbles
-    // var color = d3.scaleCategory20();
-    colors = ['#fff7f3','#fde0dd','#fcc5c0','#fa9fb5','#f768a1','#dd3497','#ae017e','#7a0177','#49006a']
-
-
     // create title above plot
     svg.append("text")
           .attr("x", (width / 2))
@@ -76,21 +71,10 @@ window.onload = function() {
       .call(yAxis);
 
     // make coordinates of data
-    count = 0
-    combined_data = []
-    years = []
+    combined_data = makeCoordinates(data1, data2)
 
-    for (i in data1){
-      if (data1[i].time == data2[i - count].time) {
-        combined_data.push([data1[i].datapoint, data2[i - count].datapoint])
-        years.push(data1[i].time)
-      } else{
-        combined_data.push([data1[i].datapoint, -50])
-        count += 1
-      }
-    }
-
-    console.log(combined_data)
+    // colors for dots
+    colors = ['#fff7f3','#fde0dd','#fcc5c0','#fa9fb5','#f768a1','#dd3497','#ae017e','#7a0177','#49006a']
 
     // plot dots
     svg.selectAll("circle")
@@ -107,8 +91,6 @@ window.onload = function() {
      .style("fill", function(d, i){
        return colors[i % 9]
      });
-
-
 
      // set text on y-axis
      svg.append("text")
@@ -164,7 +146,22 @@ window.onload = function() {
 
   }
 
+function makeCoordinates(data1, data2){
+    count = 0
+    combined_data = []
+    years = []
 
+    for (i in data1){
+      if (data1[i].time == data2[i - count].time) {
+        combined_data.push([data1[i].datapoint, data2[i - count].datapoint])
+        years.push(data1[i].time)
+      } else{
+        combined_data.push([data1[i].datapoint, -50])
+        count += 1
+      }
+    }
+    return combined_data;
+  }
 
 
   function transformResponse(data){
