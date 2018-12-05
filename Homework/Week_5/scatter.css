@@ -1,17 +1,10 @@
-/*  Maria Daan, 11243406  */
+/*  Maria Daan, 11243406
 
-/**
-*CSS file for scatterplot
-*
+* CSS file for scatterplot
 **/
 
-/*the body of the plot*/
 
 body {
   margin: 0;
   font-family: arial, sans;
-}
-
-.label {
-  font-size: 15px;
 }
