@@ -3,8 +3,6 @@
 * CSS file for scatterplot
 **/
 
-
-body {
-  margin: 0;
-  font-family: arial, sans;
-}
+text {
+    font-family: sans-serif;
+  }
