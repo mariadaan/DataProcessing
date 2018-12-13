@@ -1,5 +1,5 @@
-D3 Scatterplot is hier te vinden:
+D3 Linked Views is hier te vinden:
 
 https://mariadaan.github.io/DataProcessing/
 
-Hij doet het alleen niet, wat ik niet snap want in mijn localhost doet hij het wel en de link klopt.. :(
+Ik ben er zelf erg trots op dus veel plezier met nakijken!!
