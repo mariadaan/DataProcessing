@@ -1,26 +1,7 @@
-//Width and height
-var width = 600;
-var height = 500;
+// Maria Daan (11243406)
 
-//Define map projection
-var projection = d3.geoMercator()
-					   .center([ 13, 52 ])
-					   .translate([ width/2, height/2 ])
-					   .scale([ width/1.5 ]);
-
-//Define path generator
-var path = d3.geoPath()
-				 .projection(projection);
-
-
-//Create SVG
-var svg = d3.select("#container")
-			.append("svg")
-			.attr("width", width)
-			.attr("height", height);
-
+// Load in data
 var requests = [d3.json("countries.json"), d3.json("data.json")];
-
 Promise.all(requests).then(function(res) {
     makeMap(res[0], res[1])
 }).catch(function(e){
@@ -28,6 +9,27 @@ Promise.all(requests).then(function(res) {
     });
 
 function makeMap(json, data){
+	// Define width and height for map svg
+	var width = 600;
+	var height = 500;
+
+	// Define map projection
+	var projection = d3.geoMercator()
+						   .center([ 13, 52 ])
+						   .translate([ width/2, height/2 ])
+						   .scale([ width/1.5 ]);
+
+	//Define path generator
+	var path = d3.geoPath()
+					 .projection(projection);
+
+	//Create SVG for map
+	var svg = d3.select("#container")
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height);
+
+	// Create tooltip element
 	var tool_tip = d3.tip()
       .attr("class", "d3-tip")
       .offset([-8, 0])
@@ -36,7 +38,7 @@ function makeMap(json, data){
 			});
     svg.call(tool_tip);
 
-	//Bind data and create one path per GeoJSON feature
+	// Make map interactive
 	svg.selectAll("path")
 	   .data(json.features)
 	   .enter()
@@ -52,34 +54,34 @@ function makeMap(json, data){
 };
 
 function makeBarchart(country, data){
-	d3.select("bars").remove();
-	// svg.selectAll("bars").remove();
+	// Remove former barchart and title, if existing
+	d3.select("#barchart").select("svg").remove();
+	d3.select("#titlebars").select("h1").remove();
+
+	// Create list of all keys and all values
 	keys = Object.keys(data[country])
-
 	values = [];
-
 	for (i in keys){
 		values.push(data[country][keys[i]]);
 	}
 
-	// Remove non-index values
+	// Remove non-index values from both lists
 	keys.splice(0, 1)
 	keys.splice(5, 1)
 	values.splice(0, 1)
 	values.splice(5, 1)
 
-	//
+	// Adjust keys to fit into barchart label
 	for (i in keys){
 		keys[i] = keys[i].replace(" Index", "");
-		console.log(keys[i])
 	}
 
-	//Width and height
+	// Define width and height for barchart svg
 	var margin = {top: 20, right: 20, bottom: 50, left: 40},
 			width = 600 - margin.left - margin.right;
 			height = 500 - margin.top - margin.bottom;
 
-	//Create SVG
+	// Create SVG
 	var svg = d3.select("#barchart")
 				.append("svg")
 				.attr("id", "bars")
@@ -89,7 +91,7 @@ function makeBarchart(country, data){
     		.attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-
+	// Show title
 	d3.select("#titlebars")
 		.append("h1")
 		.text(country + ", 2018")
@@ -102,11 +104,11 @@ function makeBarchart(country, data){
 	          .range([height, 0]);
 
 // Scale the range of the data in the domains
+// Hardcode y-domain to make it easier to compare barcharts
 	x.domain(keys);
-	y.domain([0, d3.max(values, function(d) {
-		 return d;
-	 })]);
+	y.domain([0, 200]);
 
+// Create tooltip element
  var tool_tip = d3.tip()
      .attr("class", "d3-tip")
      .offset([-8, 0])
@@ -125,7 +127,6 @@ function makeBarchart(country, data){
 		.on('mouseover', tool_tip.show)
 		.on('mouseout', tool_tip.hide);
 
-
 	// Add x axis
 	svg.append("g")
 				.attr("transform", "translate(0," + height + ")")
@@ -136,7 +137,7 @@ function makeBarchart(country, data){
 	svg.append("g")
 		.call(d3.axisLeft(y));
 
-	// text label for the y axis
+	// Add text label for the y axis
   svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
@@ -145,5 +146,4 @@ function makeBarchart(country, data){
       .style("text-anchor", "middle")
 			.style("font-size", "12px")
       .text("Index value -->");
-
 }

@@ -1,7 +1,10 @@
+/* Maria Daan, 11243406 */
+
 svg {
 				background-color: white;
 			}
 
+/* Set style for titles */
 h1 {
 			color: rgb(115, 115, 115);
 			font-size: 18px;
@@ -11,7 +14,7 @@ h1 {
 			padding-bottom: 10px;
 }
 
-
+/* Set style for map svg */
 #container {
 	float: left;
 	width: 600px;
@@ -23,6 +26,7 @@ h1 {
 	box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
 }
 
+/* Set style for barchart svg */
 #barchart {
 	float: right;
 	width: 600px;
@@ -34,22 +38,13 @@ h1 {
 	box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
 }
 
-#info {
-	float: bottom;
-	width: 600px;
-	margin-left: 6px;
-	margin-right: 80px;
-	margin-top: 20px;
-	padding: 20px;
-	background-color: white;
-	box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
-}
-
+/* Set hover color */
 path:hover {
 	fill: rgba(8, 81, 156, 0.2);
 	cursor:pointer;
 }
 
+/* Tooltip style */
 .d3-tip {
 	position: absolute;
   line-height: 1;
